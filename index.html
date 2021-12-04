@@ -4,13 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"/>
     <script src = script.js defer></script>
-    <link rel= "stylesheet" href = "style.css"/>
     <title>My Library</title>
 </head>
 <body>
+    <form>
+        <div class="section">
+            <label for="name">Name of Book: </label>
+            <input type="name" id="name" name="name">
+        </div>
+        
+        <div class="section">
+
+            <label for="author">Author: </label>
+            <input type="author" id="author" name="author">
+        </div>
+
+        <div class="section">
+
+            <label for="pageCount">Page Count :</label>
+            <input type="pageCount" id="pageCount" name="pageCount">
+        </div>
+
+        <div class="section">
+            <label>
+                <input type="checkbox" name="read"> Read?
+              </label>
+        </div>
+
+        <button type="new book">Submit New Book</button>
+    
+    </form>
     <div id=container></div>
-    <button>new book</button>
+
 
 </body>
 </html>
