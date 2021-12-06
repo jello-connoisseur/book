@@ -1,5 +1,6 @@
 let myLibrary = [];
 
+//constructor
 function Book(name, author, pages, read) {
     this.name = name;
     this.author = author;
@@ -7,48 +8,58 @@ function Book(name, author, pages, read) {
     this.read = read;
 }
 
-myLibrary.push(new Book ("Bel Ami", "Guy de Maupassant", 394, true));
-myLibrary.push(new Book ("The Masterpiece", "Emile Zola", 400, true));
-myLibrary.push(new Book ("Nana", "Emile Zola", 387, false));
+//declare input value
+let inputName = '';
+let inputAuthor = '';
+let inputPages = '';
+let didRead = true;
 
-function addBookToLibrary(){
-    const newBookBtn = document.querySelector('button');
+//whensomeone clicks "add new book" button, take the user input values and push them into the array
+const newBookBtn = document.querySelector('button');
+newBookBtn.addEventListener('click', (e) => {
+    //when user presses button, the page reloads. preventDefault() prevents the page from reloading
+    e.preventDefault();
+    insert();
+});  
 
-    newBookBtn.addEventListener('click', () => {
-        const inputName = prompt("Name of the Book");
-        const inputAuthor = prompt("Name of the Author");
-        const inputPages = prompt("Page Count");
-        const didRead = prompt("Read");
-        myLibrary.push(new Book(inputName, inputAuthor, inputPages, didRead));
-    });
+function insert(){
+    inputName = document.getElementById("name");
+    inputAuthor = document.getElementById("author");
+    inputPages= document.getElementById("pageCount");
+    didRead = document.getElementsByName("read");
 
+    bookArray = [inputName, inputAuthor, inputPages, didRead].map(e => e.value);
+
+    myLibrary.push(new Book (...bookArray));
+
+    inputName.value = '';
+    inputAuthor.value = '';
+    inputPages.value = '';
+    didRead= '';
+
+    displayBook();
 }
-addBookToLibrary();
 
+function displayBook(){
+    const container = document.querySelector('#container');
 
+    const bookNumber = document.createElement('div');
+    bookNumber.classList.add('bookNumber');
+    bookNumber.textContent = 'Book '+ myLibrary.length;
+    bookNumber.setAttribute ('style', 'border: 2px solid; background: yellow; padding: 5px; margin: 5px');
+    container.appendChild(bookNumber);
 
-const container = document.querySelector('#container');
-
-function displayLibrary(){
-    myLibrary.forEach((item, index) => {
-        const bookNumber = document.createElement('div');
-        //add a class to bookNumber
-        bookNumber.classList.add('bookNumber');
-        //add content to bookNumber
-        bookNumber.textContent = 'Book ' + (index+1);
-        //add style to bookNumber
-        bookNumber.setAttribute ('style', 'border: 2px solid; background: yellow; padding: 5px; margin: 5px');
-        //append it to parent
-        container.appendChild(bookNumber);
-        for (var key in item){
-            const bookDisplay = document.createElement('div');
-            bookDisplay.classList.add('bookDisplay');
-            bookDisplay.textContent = `${key}: ${item[key]}`;
-            bookNumber.appendChild(bookDisplay);
-        }
-
-    });    
+    for (var key in myLibrary[myLibrary.length-1]){
+        const bookDisplay = document.createElement('div');
+        bookDisplay.classList.add('bookDisplay');
+        bookDisplay.textContent = `${key}: ${myLibrary[myLibrary.length-1][key]}`;
+        bookNumber.appendChild(bookDisplay);
+    }
 }
+
+
+
+
 
 
 
